@@ -2,14 +2,13 @@ import injectedModule from "@web3-onboard/injected-wallets";
 import trezor from "@web3-onboard/trezor";
 import initWalletConnect from "@web3-onboard/walletconnect";
 import ledger from "@web3-onboard/ledger";
-import Onboard from "@web3-onboard/core";
+import { init } from "@web3-onboard/react";
 import {
   CHAIN_NAME,
   CHAIN_RPC_URL,
   CHAIN_TOKEN_SYMBOL,
   getHexChainId,
 } from "../utils/configurations";
-import { useConnectWallet } from "@web3-onboard/react";
 
 const injected = injectedModule();
 const wc = initWalletConnect({ projectId: "b8433306393b78ff75897e7f76f7d411" });
@@ -19,7 +18,7 @@ const l = ledger({
   walletConnectVersion: 2,
 });
 
-const onboard = Onboard({
+export const onboard = init({
   wallets: [injected, wc, t, l],
   chains: [
     {
@@ -30,10 +29,3 @@ const onboard = Onboard({
     },
   ],
 });
-
-const useOnbard = () => {
-  const isConnected = useConnectWallet();
-  return { isConnected };
-};
-
-export { useOnbard };

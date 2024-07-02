@@ -9,7 +9,16 @@ module.exports = {
     filename: "bundle.js",
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".tsx", ".ts", ".js", ".mjs"],
+    alias: {
+      "@ledgerhq/connect-kit/dist/umd":
+        "@ledgerhq/connect-kit/dist/umd/index.js",
+    },
+    fallback: {
+      stream: require.resolve("stream-browserify"),
+      crypto: require.resolve("crypto-browserify"),
+      vm: require.resolve("vm-browserify"),
+    },
   },
   module: {
     rules: [
